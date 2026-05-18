@@ -1,0 +1,18 @@
+ACME SUPPLIES CO.
+Invoice Number: INV-1001
+Invoice Date: 2026-05-01
+Due Date: 2026-05-31
+Currency: USD
+
+Bill To:
+Northwind Traders
+
+Items:
+Premium paper reams      Qty 2   Unit Price 50.00   Amount 100.00
+Delivery service         Qty 1   Unit Price 7.00    Amount 7.00
+
+Subtotal: 107.00
+Tax: 0.00
+Total: 107.00
+
+Payment due within 30 days.

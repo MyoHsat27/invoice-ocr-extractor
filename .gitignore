@@ -1,0 +1,15 @@
+backend/.venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+backend/.env
+frontend/.env
+backend/data/*
+!backend/data/.gitkeep
+data/
+node_modules/
+.svelte-kit/
+build/
+dist/
+.DS_Store
