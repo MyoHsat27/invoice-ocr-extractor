@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class InvoiceStatus(str, Enum):
@@ -18,6 +18,11 @@ class InvoiceLineItem(BaseModel):
     unit_price: Optional[float] = None
     amount: Optional[float] = None
 
+    @field_validator("description", mode="before")
+    @classmethod
+    def empty_string_for_null_text(cls, value: object) -> object:
+        return "" if value is None else value
+
 
 class ExtractedInvoice(BaseModel):
     vendor_name: str = ""
@@ -29,6 +34,11 @@ class ExtractedInvoice(BaseModel):
     tax: Optional[float] = None
     total: Optional[float] = None
     line_items: list[InvoiceLineItem] = Field(default_factory=list)
+
+    @field_validator("vendor_name", "invoice_number", "invoice_date", "due_date", "currency", mode="before")
+    @classmethod
+    def empty_string_for_null_text(cls, value: object) -> object:
+        return "" if value is None else value
 
 
 class ProviderMetadata(BaseModel):

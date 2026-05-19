@@ -112,6 +112,31 @@ class AgentParsingTests(unittest.TestCase):
         self.assertEqual(metadata.total_tokens, 150)
         self.assertEqual(warnings, [])
 
+    def test_extract_invoice_from_model_payload_accepts_null_due_date(self) -> None:
+        payload = {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "vendor_name": "Acme Supplies",
+                                "invoice_number": "INV-1001",
+                                "invoice_date": "2026-05-01",
+                                "due_date": None,
+                                "currency": "USD",
+                                "total": 107.0,
+                                "line_items": [],
+                            }
+                        )
+                    }
+                }
+            ]
+        }
+
+        invoice, _warnings, _metadata = extract_invoice_from_model_payload(payload)
+
+        self.assertEqual(invoice.due_date, "")
+
 
 if __name__ == "__main__":
     unittest.main()
